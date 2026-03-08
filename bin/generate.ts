@@ -132,8 +132,7 @@ const copyAndReplacePlaceholders = (sourceDir: string, destDir: string, replacem
 async function generate(): Promise<void> {
   // Check required commands are installed
   await runCommand('docker --version', { cwd: CURRENT_DIR, output: true }, 'Docker is required to be installed');
-  await runCommand('poetry --version', { cwd: CURRENT_DIR, output: true }, 'Poetry is required to be installed');
-  await runCommand('pyenv --version', { cwd: CURRENT_DIR, output: true }, 'Pyenv is required to be installed');
+  await runCommand('uv --version', { cwd: CURRENT_DIR, output: true }, 'uv is required to be installed');
   await runCommand('npm --version', { cwd: CURRENT_DIR, output: true }), 'NPM is required to be installed';
 
   // check docker daemon is running
@@ -165,8 +164,8 @@ async function generate(): Promise<void> {
   // Copy files from template directory, replacing placeholders
   copyAndReplacePlaceholders(TEMPLATE_DIR, projectDir, userInput);
 
-  // Install Python dependencies using Poetry
-  await runCommand('poetry install', { cwd: serverDir });
+  // Install Python dependencies using uv
+  await runCommand('uv sync', { cwd: serverDir });
 
   // Create a new Vite project with React and TypeScript
   await runCommand(`npm create vite@latest ${userInput.projectName} -- --template react-ts`, { cwd: projectDir });

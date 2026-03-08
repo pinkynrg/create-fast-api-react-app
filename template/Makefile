@@ -1,15 +1,15 @@
 .PHONY: start_server make_migrations migrate start_client start
 
 start_server:
-	PYTHONPATH=server poetry --directory server run python -m app
+	PYTHONPATH=server uv run --directory server python -m app
 
 make_migrations:
 	docker compose -f docker-compose.development.yml up -d
-	PYTHONPATH=server poetry --directory server run alembic -c server/alembic.ini revision --autogenerate -m $(name)
+	PYTHONPATH=server uv run --directory server alembic -c server/alembic.ini revision --autogenerate -m $(name)
 	docker compose -f docker-compose.development.yml down
 
 migrate:
-	PYTHONPATH=server poetry --directory server run alembic -c server/alembic.ini upgrade head
+	PYTHONPATH=server uv run --directory server alembic -c server/alembic.ini upgrade head
 
 start_client:
 	cd client && npm run dev && cd..
