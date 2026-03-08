@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 0.0.34-deploy.2 (2026-03-08)
+### 0.0.34 (2024-09-22)
 
 
 ### Features
