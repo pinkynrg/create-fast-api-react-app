@@ -1,8 +1,8 @@
-# Create Flask React App
+# Create FastAPI React App
 
-Welcome to the **Create Flask React App** project! This project provides a simple and efficient way to bootstrap a new web application that combines Flask for the backend and React for the frontend.
+Welcome to the **Create FastAPI React App** project! This project provides a simple and efficient way to bootstrap a new web application that combines FastAPI for the backend and React for the frontend.
 
-![demo](https://github.com/pinkynrg/create-flask-react-app/blob/main/demo.gif)
+![demo](https://github.com/pinkynrg/create-fast-api-react-app/blob/main/demo.gif)
 
 ## Getting Started
 
@@ -10,10 +10,10 @@ Follow these steps to create and start your new application:
 
 ### 1. Generate a New Application
 
-To generate a new Flask-React application, run the following command in your terminal:
+To generate a new FastAPI-React application, run the following command in your terminal:
 
 ```bash
-npm create flask-react-app@latest
+npm create fast-api-react-app@latest
 ```
 
 This command will guide you through a few questions to customize your project setup.
@@ -40,11 +40,11 @@ Once inside the project directory, you can start the application by running:
 make start
 ```
 
-This command will launch both the Flask backend and the React frontend, allowing you to begin developing your application.
+This command will launch both the FastAPI backend and the React frontend, allowing you to begin developing your application.
 
 ## Additional Information
 
-- **Backend**: The project uses Flask, a lightweight WSGI web application framework in Python, for the backend.
+- **Backend**: The project uses FastAPI, a modern, high-performance web framework for building APIs with Python.
 - **Frontend**: The frontend is built with React, a popular JavaScript library for building user interfaces.
 
 Feel free to explore and customize the generated project to suit your needs. Happy coding!

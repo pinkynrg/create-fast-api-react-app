@@ -1,13 +1,13 @@
-from flask import Blueprint, jsonify
+from fastapi import APIRouter
 from datetime import datetime, UTC
 
-main_blueprint = Blueprint('main', __name__)
+router = APIRouter(prefix="/api")
 
-@main_blueprint.route('/api', methods=['GET'])
+@router.get("/")
 def server_up():
-    return 'server is up!', 200
+    return "server is up!"
 
-@main_blueprint.route('/api/utc-datetime', methods=['GET'])
+@router.get("/utc-datetime")
 def get_utc_datetime():
-    current_utc_datetime = datetime.now(UTC).isoformat() + 'Z'
-    return jsonify({"utc_datetime": current_utc_datetime}), 200
+    current_utc_datetime = datetime.now(UTC).isoformat() + "Z"
+    return {"utc_datetime": current_utc_datetime}

@@ -15,8 +15,8 @@ COPY ./server ./server
 # Install project dependencies
 RUN cd server && uv sync --frozen
 
-# Expose the port that your Flask app runs on
-EXPOSE 5000
+# Expose the port that your FastAPI app runs on
+EXPOSE 8000
 
 # Define the command to run your application
-CMD ["uv", "run", "--directory", "server", "python", "-m", "server.app"]
+CMD ["uv", "run", "--directory", "server", "uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "8000"]

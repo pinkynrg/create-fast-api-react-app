@@ -1,7 +1,7 @@
 .PHONY: start_server make_migrations migrate start_client start
 
 start_server:
-	PYTHONPATH=$(CURDIR) uv run --directory server python -m app
+	PYTHONPATH=$(CURDIR) uv run --directory server uvicorn server.app:app --host 0.0.0.0 --port 8000 --reload
 
 make_migrations:
 	docker compose -f docker-compose.development.yml up -d

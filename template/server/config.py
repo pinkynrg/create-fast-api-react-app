@@ -1,11 +1,16 @@
-import os
+from pydantic_settings import BaseSettings
 
-class Config:
-    SQLALCHEMY_DATABASE_URI = 'postgresql://{user}:{password}@{host}/{dbname}'.format(
-        user=os.getenv('POSTGRES_USER'),
-        password=os.getenv('POSTGRES_PASSWORD'),
-        host=os.getenv('POSTGRES_HOST'),
-        dbname=os.getenv('POSTGRES_DB')
-    )
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'your-secret-key'
+class Settings(BaseSettings):
+    postgres_user: str = "root"
+    postgres_password: str = "root"
+    postgres_host: str = "127.0.0.1"
+    postgres_db: str = "db"
+
+    @property
+    def database_url(self) -> str:
+        return f"postgresql://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}/{self.postgres_db}"
+
+    class Config:
+        env_file = ".env"
+
+settings = Settings()

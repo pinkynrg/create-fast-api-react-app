@@ -142,7 +142,7 @@ async function generate(): Promise<void> {
 
   // Gather project information from the user
   const userInput = {
-    serverPort: '5000',
+    serverPort: '8000',
     serverHost: '127.0.0.1',
     projectName: await askForInput({ message: 'Project name', normalize: true, defaultValue: 'myProject' }),
     projectDescription: await askForInput({ message: 'Project description' }),

@@ -2,15 +2,9 @@ from __future__ import with_statement
 from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
-from server import create_app, db
+from server import Base, engine
+from server.config import settings
 from server.models import *
-from dotenv import load_dotenv
-
-load_dotenv()
-
-# Set up the app context
-app = create_app()
-app.app_context().push()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -20,12 +14,12 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# Set the SQLAlchemy connection URL from Flask config
-config.set_main_option('sqlalchemy.url', app.config['SQLALCHEMY_DATABASE_URI'])
+# Set the SQLAlchemy connection URL from settings
+config.set_main_option('sqlalchemy.url', settings.database_url)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-target_metadata = db.metadata
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

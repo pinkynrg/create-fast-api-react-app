@@ -1,20 +1,16 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from server.config import settings
 
-db = SQLAlchemy()
+engine = create_engine(settings.database_url)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-def create_app(config_filename=None):
-    app = Flask(__name__)
+class Base(DeclarativeBase):
+    pass
 
-    if config_filename:
-        app.config.from_pyfile(config_filename)
-    else:
-        app.config.from_object('server.config.Config')
-
-    db.init_app(app)
-
-    # Import and register blueprints/routes here
-    from server.routes import main_blueprint
-    app.register_blueprint(main_blueprint)
-
-    return app
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
