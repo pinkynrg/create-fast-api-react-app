@@ -168,7 +168,7 @@ async function generate(): Promise<void> {
   await runCommand('uv sync', { cwd: serverDir });
 
   // Create a new Vite project with React and TypeScript
-  await runCommand(`npm create vite@7.3.1 ${userInput.projectName} -- --template react-ts`, { cwd: projectDir });
+  await runCommand(`npm create vite@8.3.0 ${userInput.projectName} -- --template react-ts`, { cwd: projectDir });
   
   // Move files from temporaryClientDir to clientDir, preserving existing files
   moveFilesPreserveExisting(temporaryClientDir, clientDir);
