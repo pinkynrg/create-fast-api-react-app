@@ -176,6 +176,12 @@ async function generate(): Promise<void> {
   // Load the existing package.json
   const pkgJson = await PackageJson.load(clientDir);
 
+  // Remove ESLint 9+ packages from Vite template that conflict with Airbnb config (eslint 8)
+  const devDeps = { ...(pkgJson.content.devDependencies || {}) };
+  delete devDeps['eslint-plugin-react-refresh'];
+  delete devDeps['@eslint/js'];
+  delete devDeps['typescript-eslint'];
+
   // Update the package.json
   pkgJson.update({
     dependencies: {
@@ -184,7 +190,7 @@ async function generate(): Promise<void> {
       'moment': '^2.30.1',
     },
     devDependencies: {
-      ...(pkgJson.content.devDependencies || {}),
+      ...devDeps,
       'eslint-plugin-prefer-arrow': '^1.2.3',
       '@types/node': '^22.4.1',
       'eslint': '^8.51.0',
@@ -200,9 +206,8 @@ async function generate(): Promise<void> {
   // Install npm packages
   await runCommand(`npm install`, { cwd: clientDir });
 
-  // Install Airbnb ESLint config
+  // Install Airbnb ESLint config and remove Vite's ESLint 9 flat config
   await runCommand('npx install-peerdeps --dev eslint-config-airbnb', { cwd: clientDir })
-  await runCommand('npm uninstall @eslint/js', { cwd: clientDir })  
   await runCommand('rm eslint.config.js', { cwd: clientDir })
 
   // create .gitignore file
